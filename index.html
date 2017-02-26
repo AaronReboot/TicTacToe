@@ -24,8 +24,20 @@
         */
         .title {
             text-align: center;
-            margin: -15px 0 35px 0;
+            margin-bottom: 30px;
             font-size: 30px;
+        }
+        
+        /*
+            The announcement for a winner
+        */ 
+        .winner {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 30px;
+            height: 30px;
+            color: orange;
+            font-weight: bold;
         }
         
         /*
@@ -107,13 +119,13 @@
             // check if there's a winner yet
             var w = winner();
             if (w == "X" || w == "O") {
-                alert(w + " wins!");
+                $(".winner").html(w + " wins!");
                 return;
             }
             
             // if no winner, check if board is full, if so declare a draw
             if (turnNumber == 8) {
-                alert("Draw!");
+                $(".winner").html("Draw!");
                 return;
             }
             // advance the turn counter to switch between X and O
@@ -227,8 +239,8 @@
 
 <body>
     <div class="title">Tic Tac Toe</div>
-
     <div class="board"></div>
+    <div class="winner"></div>
 </body>
 
 </html>
