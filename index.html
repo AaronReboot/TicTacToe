@@ -76,10 +76,29 @@
         }
     </style>
     <script>
+        var turnNumber = 0; // even number turns are X's; odd number turns are O's
+    
         // clickHandler receives the position of the square which was clicked
         function clickHandler(pos) {
             // print the position to console
             console.log(pos);
+            
+            var $thisSquare = $(".board-cell").eq(3*pos.row + pos.column);
+            // check if square is empty
+
+            if ($thisSquare.html() != "") {
+                alert("Hey, this square is already taken");
+                // stop here so player can choose again
+                return;
+            }
+            if (turnNumber % 2 == 0) {
+                $thisSquare.html("X");
+            } else {
+                $thisSquare.html("O");
+            }
+            
+            // advance the turn counter to switch between X and O
+            turnNumber++;
         }
     
         /*
@@ -88,7 +107,7 @@
         $(document).ready(function() {
             var numRows = 3;
             var numColumns = 3;
-            
+        
             // use two for loops to add all the divs needed for the board
             for (var i = 0; i < numRows; i++) {
                 // each row begins with a <div class="board-row">
