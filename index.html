@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Tic Tac Toe</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <style>
         /*
@@ -74,28 +75,35 @@
             border-right: 0;
         }
     </style>
+    <script>
+        /*
+            $(document).ready() waits until the page is ready to be modified
+        */
+        $(document).ready(function() {
+            var numRows = 3;
+            var numColumns = 3;
+            
+            // use two for loops to add all the divs needed for the board
+            for (var i = 0; i < numRows; i++) {
+                // each row begins with a <div class="board-row">
+                var $row = $("<div class='board-row'></div>");
+                
+                for (var j = 0; j < numColumns; j++) {
+                    // add a cell to the new row
+                    var $cell = $("<div class='board-cell'></div>");
+                    $row.append($cell);
+                }
+                
+                $(".board").append($row);
+            }
+        });
+    </script>
 </head>
 
 <body>
     <div class="title">Tic Tac Toe</div>
 
-    <div class="board">
-        <div class="board-row">
-            <div class="board-cell"></div>
-            <div class="board-cell"></div>
-            <div class="board-cell"></div>
-        </div>
-        <div class="board-row">
-            <div class="board-cell"></div>
-            <div class="board-cell"></div>
-            <div class="board-cell"></div>
-        </div>
-        <div class="board-row">
-            <div class="board-cell"></div>
-            <div class="board-cell"></div>
-            <div class="board-cell"></div>
-        </div>
-    </div>
+    <div class="board"></div>
 </body>
 
 </html>
