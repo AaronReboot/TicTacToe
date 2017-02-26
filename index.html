@@ -76,6 +76,12 @@
         }
     </style>
     <script>
+        // clickHandler receives the position of the square which was clicked
+        function clickHandler(pos) {
+            // print the position to console
+            console.log(pos);
+        }
+    
         /*
             $(document).ready() waits until the page is ready to be modified
         */
@@ -91,6 +97,11 @@
                 for (var j = 0; j < numColumns; j++) {
                     // add a cell to the new row
                     var $cell = $("<div class='board-cell'></div>");
+                    // add a click handler for this cell, and pass it data
+                    // about which cell it is
+                    $cell.on("click", { row: i, column: j }, function(event) {
+                        clickHandler(event.data);
+                    });
                     $row.append($cell);
                 }
                 
