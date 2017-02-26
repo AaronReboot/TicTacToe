@@ -81,30 +81,121 @@
     </style>
     <script>
         var turnNumber = 0; // even number turns are X's; odd number turns are O's
+        
+        function valueAt(row, column) {
+            return $(".board-cell").eq(3*row + column).html();
+        }
+        
+        function setValueAt(row, column, player) {
+            $(".board-cell").eq(3*row + column).html(player);
+        }
     
         // clickHandler receives the position of the square which was clicked
         function clickHandler(pos) {
-            // print the position to console
-            console.log(pos);
-            
-            var $thisSquare = $(".board-cell").eq(3*pos.row + pos.column);
             // check if square is empty
-
-            if ($thisSquare.html() != "") {
+            if (valueAt(pos.row, pos.column) != "") {
                 alert("Hey, this square is already taken");
                 // stop here so player can choose again
                 return;
             }
             if (turnNumber % 2 == 0) {
-                $thisSquare.html("X");
+                setValueAt(pos.row, pos.column, "X");
             } else {
-                $thisSquare.html("O");
+                setValueAt(pos.row, pos.column, "O");
             }
             
+            // check if there's a winner yet
+            var w = winner();
+            if (w == "X" || w == "O") {
+                alert(w + " wins!");
+                return;
+            }
+            
+            // if no winner, check if board is full, if so declare a draw
+            if (turnNumber == 8) {
+                alert("Draw!");
+                return;
+            }
             // advance the turn counter to switch between X and O
             turnNumber++;
         }
-    
+        
+        // winner determines if there's a winner on the board, if so it returns who the winner is
+        function winner() {
+            if (checkforWin("X")) {
+                return "X";
+            }
+            if (checkforWin("O")) {
+                return "O";
+            }
+        }
+        
+        function checkforWin(player) {
+            // check each row
+            for (var row = 0; row < 3; row++) {
+                if (checkforWinRow(player, row)) {
+                    return true;
+                }
+            }
+            
+            // check each column
+            for (var column = 0; column < 3; column++) {
+                if (checkforWinColumn(player, column)) {
+                    return true;
+                }
+            }
+            
+            // check each diagonal
+            if (checkforWinDiagonalLeft(player)) {
+                return true;
+            }
+            if (checkforWinDiagonalRight(player)) {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        // checkforWinRow checks if player provided has won the row provided
+        function checkforWinRow(player, row) {
+            for (var column = 0; column < 3; column++) {
+                if (valueAt(row, column) != player) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        // checkforWinColumn checks if player provided has won the column provided
+        function checkforWinColumn(player, column) {
+            for (var row = 0; row < 3; row++) {
+                if (valueAt(row, column) != player) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        // checkforWinDiagonalLeft checks if player provided has won the "left" diagonal
+        function checkforWinDiagonalLeft(player) {
+            for (var i = 0; i < 3; i++) {
+                if (valueAt(i, i) != player) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        // checkforWinDiagonalRight checks if player provided has won the "right" diagonal
+        function checkforWinDiagonalRight(player) {
+            for (var i = 0; i < 3; i++) {
+                if (valueAt(i, 2-i) != player) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
         /*
             $(document).ready() waits until the page is ready to be modified
         */
