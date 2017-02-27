@@ -2,10 +2,13 @@
 
 var turnNumber = 0; // even number turns are X's; odd number turns are O's
 
+// valueAt returns the value (aka the player) at the provided row & column
+// the return values are 'X', 'O', or ''
 function valueAt(row, column) {
     return $(".board-cell").eq(3 * row + column).html();
 }
 
+// setValueAt sets the square at row, column with 'X' or 'O'
 function setValueAt(row, column, player) {
     $(".board-cell").eq(3 * row + column).html(player);
 }
@@ -18,6 +21,8 @@ function clickHandler(pos) {
         // stop here so player can choose again
         return;
     }
+    // set value at the square clicked on, if turnNumber is even set 'X',
+    // otherwise set 'O'
     if (turnNumber % 2 == 0) {
         setValueAt(pos.row, pos.column, "X");
     }
