@@ -32,15 +32,6 @@ html {
 }
 
 /*
-    Board will hold a grid of divs, "table" is an easy way to manage a
-    grid
-*/
-.board {
-    display: table;
-    table-layout: fixed;
-}
-
-/*
     a "cell" in our game is a single square
 */
 .board-cell {
